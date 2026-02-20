@@ -1,12 +1,13 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import Header from "./Components/Header";
 import Cart from "./Components/Cart";
 import ProductCart from "./Components/ProductCart";
 import ProductList from "./Components/ProductList";
 
 export default function App(){
-    const[cart,setCart]=useState(0);
-    const product=[{
+    const[cart,setCart]=useState([]);
+    const[totalAmt,setAmt]=useState(0);
+    const products=[{
         id:1,
         name:"Laptop",
         price:50000,
@@ -29,6 +30,7 @@ export default function App(){
 
     function addToCart(product){
     setCart([...cart,product])
+    setAmt(totalAmt+product.price)
   }
 
   function removeFromCart(index){
@@ -36,13 +38,14 @@ export default function App(){
     setCart(updatecart);
   }
 
-  const totalAmount=cart.reduce((total,index)=>(total+index.price,0))
+  const totalAmount=cart.reduce((total,index)=>total+index.price,0)
     return(
         <>
         <Header cartCount={cart.length}/>
-        <ProductCart />
-        <ProductList />
-        <Cart />
+        <ProductCart  product={products[0]} 
+   addToCart={addToCart} />
+        <ProductList products={products} addToCart={addToCart}/>
+        <Cart cart={cart} totalAmount={totalAmt} removeFromCart={removeFromCart}/>
         </>
     )
 }
