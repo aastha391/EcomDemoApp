@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Cart from "./Components/Cart";
 import ProductCart from "./Components/ProductCart";
 import ProductList from "./Components/ProductList";
+import Search from "./Components/Search";
 
 export default function App(){
     const[cart,setCart]=useState([]);
@@ -42,8 +43,9 @@ export default function App(){
     return(
         <>
         <Header cartCount={cart.length}/>
-        <ProductCart  product={products[0]} 
-   addToCart={addToCart} />
+        {/* <ProductCart  product={products[0]} 
+   addToCart={addToCart} /> */}
+   <Search products={products}/>
         <ProductList products={products} addToCart={addToCart}/>
         <Cart cart={cart} totalAmount={totalAmt} removeFromCart={removeFromCart}/>
         </>
